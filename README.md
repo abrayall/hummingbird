@@ -2,3 +2,7 @@
 
 # Hummingbird
 Java Runtime Environment (JRE) Minification Tool
+
+## Overview
+Hummingbird can take a regular JRE and shrink it down to just the features and functionality needed by your app.  The standard Java 8 JRE is almost 200 megabytes in size.  Hummingbird can compress is down to just over 30 megabytes, so that it can easily be distributed with your app.
+
