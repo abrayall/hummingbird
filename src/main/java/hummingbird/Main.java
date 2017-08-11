@@ -26,7 +26,7 @@ public class Main extends cilantro.Main {
 	}
 	
 	public String version() {
-		return "0.0.1";
+		return "0.1.0";
 	}
 	
 	public Integer execute(List<String> parameters, Map<String, String> options) throws Exception {
