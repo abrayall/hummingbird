@@ -44,13 +44,14 @@ public class Main extends cilantro.Main {
 	}
 	
 	protected Integer execute(File jre, Map<String, String> options) throws Exception {
+		long start = System.currentTimeMillis();
 		println("Removing unnessecary files...");
 		clean(jre, options);
 		
 		println("Compressing files...");
 		compress(jre, options);
 		
-		println("Minification complete.");
+		println("Minification complete [" + ((System.currentTimeMillis() - start) / 1000) + " seconds].");
 		return 0;
 	}
 
