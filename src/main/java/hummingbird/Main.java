@@ -15,6 +15,8 @@ import javax.lang.Try;
 import javax.util.List;
 import javax.util.Map;
 
+import vermouth.Version;
+
 public class Main extends cilantro.Main {
 	
 	public String name() {
@@ -26,7 +28,7 @@ public class Main extends cilantro.Main {
 	}
 	
 	public String version() {
-		return "0.1.0";
+		return Version.getVersion("0.0.0").toString();
 	}
 	
 	public Integer execute(List<String> parameters, Map<String, String> options) throws Exception {
