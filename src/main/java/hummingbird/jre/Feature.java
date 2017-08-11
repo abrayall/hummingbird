@@ -9,7 +9,7 @@ public class Feature {
 	public List<String> JDBC = list();
 	public List<String> NIO = list();
 	public List<String> XML = list();
-	public List<String> WEB_SRVICES = list();
+	public List<String> WEBSERVICES = list();
 	public List<String> AWT = list();
 	public List<String> SWT = list();
 	public List<String> BEANS = list();
@@ -24,14 +24,21 @@ public class Feature {
 	public List<String> XERCES = list();
 	public List<String> XPATH = list();
 	public List<String> GLASSFISH = list();
-	public List<String> RMI = list();
+	
+	public List<String> RMI = list("bin/rmid", "bin/rmiregistry", "bin/tnameserv", "bin/orbd", "bin/servertool", "bin/policytool");
+	public List<String> KERBEROS = list("bin/keytool", "bin/kinit", "bin/klist", "bin/ktab");
+	
+	
 	public List<String> APPLET = list();
 	public List<String> TIME = list();
 	public List<String> SECURITY = list();
 	public List<String> MANAGEMENT = list();
 	public List<String> ENCRYPTION = list();
+	
 	public List<String> FX = list();
-	public List<String> JFR = list();
+	public List<String> WEBSTART = list("bin/javaws", "lib/javaws.jar");
+	public List<String> JFR = list("lib/jfr", "lib/jfr.jar");
+	
 	public List<String> NASHORN = list();
 	
 	// awt.dll - awt
