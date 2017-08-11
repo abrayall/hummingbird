@@ -16,8 +16,9 @@ The standard Java 8 JRE is almost 200 megabytes in size.  Hummingbird currently 
   [/opt/hummingbird]$ bin/hummingbird /opt/java/1.8.0_144/jre
   ```
   
-    - The JRE specified will be updated in place.  
-    - The JRE can then be tar'ed up and redistributed with any application.
+  Notes:
+  - The JRE specified will be updated in place.  
+  - The JRE can then be tar'ed up and redistributed with any application.
   
 ## Schedule
   - [x] v0.1.0 - Support removing all unnecessary files
