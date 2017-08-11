@@ -9,6 +9,7 @@
 	<condition property="uptodate">
 		<uptodate targetfile="${build.dir}/artifacts/${artifact.name}.tar" >
 			<srcfiles dir="." includes="build.xml" />
+			<srcfiles dir="." includes="version.properties" />
 		    <srcfiles dir= "${source.dir}" includes="**/*.java" />
 			<srcfiles dir= "${resource.dir}" includes="**/*" />
 			<srcfiles dir= "${library.dir}" includes="**/*" />
