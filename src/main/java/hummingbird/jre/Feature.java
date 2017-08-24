@@ -35,11 +35,20 @@ public class Feature {
 	public List<String> MANAGEMENT = list();
 	public List<String> ENCRYPTION = list();
 	
-	public List<String> FX = list();
+	public List<String> FX = list("lib/ant-javafx.jar", "lib/javafx.properties", "lib/jfxswt.jar").appendAll(libs("decora-sse", "decora_sse", "fxplugins", "glass", "glib-lite", "gstreamer-lite", "javafx-font", "javafx_font_t2k", "javafx-iio", "jfxmedia", "jfxwebkit", "prism_common", "prism-d3d", "prism_es2", "prism_sw", "javafx_font_freetype", "javafx_font_pango"));
 	public List<String> WEBSTART = list("bin/javaws", "lib/javaws.jar");
 	public List<String> JFR = list("lib/jfr", "lib/jfr.jar");
 	
 	public List<String> NASHORN = list();
+	
+	
+	public List<String> lib(String name) {
+		return list("bin/" + name + ".dll", "lib/" + name + "dylib", "lib/i386/" + name + ".so", "lib/amd64/" + name + ".so");
+	}
+	
+	public List<String> libs(String... names) {
+		return list(names).flatMap(name -> lib(name));
+	}
 	
 	// awt.dll - awt
 	
@@ -134,20 +143,4 @@ public class Feature {
 	
 	// jjs.exe - javascript
 	// jli - core
-	
-	// prism_common.dll - javafx
-	// javafx_font.dll - javafx
-	// prism_d3d.dll - javafx
-	// prism_sw.dll - javafx
-	// jfxmedia.dll - javafx
-	// jfxwebkit.dll - javafx
-	// javafx_font.dll - javafx
-	// javafx_font_t2k.dll - javafx
-	// javafx_iio.dll - javafx
-	// fxplugins.dll - javafx
-	// glass.dll - javafx
-	// glib-lite.dll - javafx
-	// gstreamer-lite.dll - javafx
-	// decora_sse.dll - javafx
-	
 }
