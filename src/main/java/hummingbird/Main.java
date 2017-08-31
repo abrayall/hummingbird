@@ -15,6 +15,7 @@ import javax.lang.Try;
 import javax.util.List;
 import javax.util.Map;
 
+import hummingbird.jre.Feature;
 import vermouth.Version;
 
 public class Main extends cilantro.Main {
@@ -40,13 +41,13 @@ public class Main extends cilantro.Main {
 		if (file(jre, "bin/java").exists() == false && file(jre, "bin/java.exe").exists() == false)
 			return error(-1, "Directory " + jre + " is not a valid JRE");
 		
-		return execute(jre, options);
+		return execute(jre, Feature.FEATURES, options);
 	}
 	
-	protected Integer execute(File jre, Map<String, String> options) throws Exception {
+	protected Integer execute(File jre, List<Feature> features, Map<String, String> options) throws Exception {
 		long start = System.currentTimeMillis();
 		println("Removing unnessecary files...");
-		clean(jre, options);
+		clean(jre, invert(features), options);
 		
 		println("Compressing files...");
 		compress(jre, options);
@@ -55,10 +56,10 @@ public class Main extends cilantro.Main {
 		return 0;
 	}
 
-	protected void clean(File jre, Map<String, String> options) throws Exception {
+	protected void clean(File jre, List<Feature> unwanted, Map<String, String> options) throws Exception {
 		jre.search().forEach(file -> {
 			String path = file.relative(jre);
-			if ((path.startsWith("bin") == false  && path.startsWith("lib") == false) || path.endsWith(".jsa") || path.endsWith(".txt") ) {
+			if ((path.startsWith("bin") == false  && path.startsWith("lib") == false) || path.endsWith(".jsa") || path.endsWith(".txt") || contains(unwanted, path)) {
 				println("  Deleting file " + file + "...");
 				Try.attempt(() -> file.delete());
 			}
@@ -94,6 +95,14 @@ public class Main extends cilantro.Main {
 		zip.setMethod(ZipOutputStream.DEFLATED);
 		zip.setLevel(Deflater.BEST_COMPRESSION);
 		return zip;
+	}
+	
+	protected boolean contains(List<Feature> features, String file) {
+		return features.filter(feature -> feature.contains(file)).size() > 0;
+	}
+	
+	protected static List<Feature> invert(List<Feature> features) {
+		return Feature.FEATURES.filter(feature -> !features.contains(feature));
 	}
 	
 	public static void main(String[] arguments) throws Exception {
