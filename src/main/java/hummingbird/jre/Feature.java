@@ -33,7 +33,6 @@ public class Feature {
 	public static Feature ENCRYPTION = new Feature("encryption", list());
 	public static Feature NASHORN = new Feature("nashorn", list());
 	
-
 	public static Feature RMI = new Feature("rmi", list("bin/rmid", "bin/rmiregistry", "bin/tnameserv", "bin/orbd", "bin/servertool", "bin/policytool"));
 	public static Feature KERBEROS = new Feature("kerberos", list("bin/keytool", "bin/kinit", "bin/klist", "bin/ktab"));
 
@@ -53,6 +52,18 @@ public class Feature {
 
 	public static List<Feature> features(List<String> names) {
 		return FEATURES.filter(feature -> names.contains(feature.name));
+	}
+	
+	public static List<Feature> invert(String... names) {
+		return invert(features(names));
+	}
+	
+	public static List<Feature> invert(Feature... features) {
+		return invert(list(features));
+	}
+	
+	public static List<Feature> invert(List<Feature> features) {
+		return Feature.FEATURES.filter(feature -> !features.contains(feature));
 	}
 	
 	protected String name;
