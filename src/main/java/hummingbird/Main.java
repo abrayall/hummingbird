@@ -1,6 +1,9 @@
 package hummingbird;
 
 import static javax.io.File.*;
+import static javax.util.Map.*;
+import static javax.util.List.*;
+import static hummingbird.jre.Feature.*;
 
 import java.io.BufferedOutputStream;
 import java.util.jar.JarEntry;
@@ -17,6 +20,7 @@ import javax.util.Map;
 
 import hummingbird.jre.Feature;
 import vermouth.Version;
+
 
 public class Main extends cilantro.Main {
 	
@@ -42,6 +46,10 @@ public class Main extends cilantro.Main {
 			return error(-1, "Directory " + jre + " is not a valid JRE");
 		
 		return execute(jre, Feature.FEATURES, options);
+	}
+	
+	protected Integer execute(File jre, Level level, Map<String, String> options) throws Exception {
+		return execute(jre, level.features, options);
 	}
 	
 	protected Integer execute(File jre, List<Feature> features, Map<String, String> options) throws Exception {
@@ -101,11 +109,31 @@ public class Main extends cilantro.Main {
 		return features.filter(feature -> feature.contains(file)).size() > 0;
 	}
 	
-	protected static List<Feature> invert(List<Feature> features) {
-		return Feature.FEATURES.filter(feature -> !features.contains(feature));
-	}
-	
 	public static void main(String[] arguments) throws Exception {
 		main(Main.class, arguments);
+	}
+	
+	public static class Level {
+		
+		public static Level NORMAL = new Level(FEATURES);
+		public static Level LIGHT  = new Level(FEATURES.without(Feature.JAVAFX, Feature.WEBSTART, Feature.JFR));
+		
+		public static Map<String, Level> levels = map(
+			entry("normal", NORMAL),
+			entry("light", LIGHT)
+		);
+		
+		public static Level level(String name) {
+			return levels.getOrDefault(name, NORMAL);
+		}
+		
+		protected List<Feature> features;
+		protected Level(List<Feature> features) {
+			this.features = features;
+		}
+		
+		protected Level(Feature...features) {
+			this(list(features));
+		}
 	}
 }
