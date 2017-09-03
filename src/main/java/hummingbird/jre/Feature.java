@@ -11,7 +11,7 @@ public class Feature {
 	public static Feature NIO = new Feature("nio", list());
 	public static Feature XML = new Feature("xml", list());
 	public static Feature WEBSERVICES = new Feature("webservices", list());
-	public static Feature AWT = new Feature("awt", list());
+	public static Feature AWT = new Feature("awt", list(), list("awt", "dcpr", "JavaAccessBridge", "splashscreen", "jawt"));
 	public static Feature SWT = new Feature("swt", list());
 	public static Feature BEANS = new Feature("beans", list());
 	public static Feature CORBA = new Feature("corba", list());
@@ -37,14 +37,14 @@ public class Feature {
 	public static Feature KERBEROS = new Feature("kerberos", list("bin/keytool", "bin/kinit", "bin/klist", "bin/ktab"));
 
 	public static Feature JAVAFX = new Feature("javafx",
-		list("lib/ant-javafx.jar", "lib/javafx.properties", "lib/jfxswt.jar"),
+		list("lib/ant-javafx.jar", "lib/javafx.properties", "lib/jfxswt.jar", "lib/ext/jfxrt.jar"),
 		list("decora-sse", "decora_sse", "fxplugins", "glass", "glib-lite", "gstreamer-lite", "javafx-font", "javafx_font_t2k", "javafx-iio", "jfxmedia", "jfxwebkit", "prism_common", "prism-d3d", "prism_es2", "prism_sw", "javafx_font_freetype", "javafx_font_pango")
 	);
 	
 	public static Feature WEBSTART = new Feature("webstart", list("bin/javaws", "lib/javaws.jar"));
 	public static Feature JFR = new Feature("jfr", list("lib/jfr", "lib/jfr.jar"));
 	
-	public static List<Feature> FEATURES = list(JAVAFX, WEBSTART, JFR);
+	public static List<Feature> FEATURES = list(JAVAFX, WEBSTART, JFR, AWT);
 	
 	public static List<Feature> features(String... names) {
 		return features(list(names));
@@ -83,7 +83,7 @@ public class Feature {
 		this.name = name;
 		this.files = files;
 		this.classes = classes;
-		this.libraries = libraries.flatMap(library -> list("bin/" + library + ".dll", "lib/" + library + "dylib", "lib/i386/" + library + ".so", "lib/amd64/" + library + ".so"));
+		this.libraries = libraries.flatMap(library -> list("bin/" + library + ".dll", "lib/lib" + library + ".dylib", "lib/i386/" + library + ".so", "lib/amd64/" + library + ".so"));
 	}
 	
 	public boolean equals(Object object) {
