@@ -33,7 +33,7 @@ public class Main extends cilantro.Main {
 	}
 	
 	public String version() {
-		return Version.getVersion("0.0.0").toString();
+		return Version.getVersion().toString();
 	}
 	
 	public Integer execute(List<String> parameters, Map<String, String> options) throws Exception {
@@ -45,7 +45,7 @@ public class Main extends cilantro.Main {
 		if (file(jre, "bin/java").exists() == false && file(jre, "bin/java.exe").exists() == false)
 			return error(-1, "Directory " + jre + " is not a valid JRE");
 		
-		return execute(jre, Feature.FEATURES, options);
+		return execute(jre, Level.level(options.get("level", "normal")), options);
 	}
 	
 	protected Integer execute(File jre, Level level, Map<String, String> options) throws Exception {
